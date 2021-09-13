@@ -11,6 +11,7 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 game = None
+p2_color = "yellow" #vj2245
 
 '''
 Implement '/' endpoint
@@ -22,7 +23,8 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
-    pass
+    return render_template("player1_connect.html", status="Pick a Color.") # vj2245
+    # pass 
 
 
 '''
@@ -48,8 +50,16 @@ Assign player1 their color
 
 
 @app.route('/p1Color', methods=['GET'])
-def player1_config():
-    pass
+def player1_config(color=None): #vj2245
+    global p2_color
+    color = request.args.get("color")
+    if color == "yellow":
+        p2_color = "red"
+    else:
+        p2_color = "yellow"
+    return render_template("player1_connect.html", status=color)
+    # return "<p>"+color+"</p>"
+    # pass
 
 
 '''
@@ -64,7 +74,8 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    pass
+    return render_template("p2Join.html", status=p2_color)
+    # pass
 
 
 '''
